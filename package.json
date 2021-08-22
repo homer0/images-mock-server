@@ -1,7 +1,7 @@
 {
-  "name": "imageserver",
+  "name": "images-mock-server",
   "version": "1.0.0",
-  "description": "Dev ser to mock images",
+  "description": "Dev server to mock images with specific sizes",
   "main": "src/index.js",
   "keywords": [],
   "author": "",
