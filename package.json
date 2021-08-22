@@ -1,0 +1,50 @@
+{
+  "name": "imageserver",
+  "version": "1.0.0",
+  "description": "Dev ser to mock images",
+  "main": "src/index.js",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --watch \"src/**\" --ext \"ts\" --exec \"ts-node src/index.ts\"",
+    "lint": "lint-staged",
+    "lint:all": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "types:check": "tsc --noEmit",
+    "prepare": "husky install"
+  },
+  "engine-strict": true,
+  "engines": {
+    "node": ">=14"
+  },
+  "lint-staged": {
+    "./**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
+  },
+  "dependencies": {
+    "fastify": "^3.20.2",
+    "sharp": "0.29.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@homer0/eslint-plugin": "^8.0.1",
+    "@homer0/prettier-config": "^1.1.1",
+    "@types/node": "^16.7.1",
+    "@types/sharp": "0.28.5",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
+    "eslint": "^7.32.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.3.5"
+  }
+}
