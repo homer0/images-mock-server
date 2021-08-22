@@ -100,7 +100,7 @@ app.get<{ Params: { width: string; height: string; filename: string } }>(
     const lblTextX = Math.floor(width * 0.02);
     const lblTextY = Math.floor(lblHeight * 0.7);
 
-    const svg = `
+    const lblSvg = `
       <svg>
         <rect
           x="0"
@@ -119,8 +119,36 @@ app.get<{ Params: { width: string; height: string; filename: string } }>(
       </svg>
     `;
 
-    const lbl = Buffer.from(svg);
+    const lbl = Buffer.from(lblSvg);
     const color = getRandomColor();
+
+    const smWidth = Math.floor(width * 0.05);
+    const smHeight = Math.floor(height * 0.1);
+    const smSvg = `
+      <svg>
+        <rect
+          x="0"
+          y="0"
+          width="${smWidth}"
+          height="${smHeight}"
+          fill="#000"
+        />
+      </svg>
+    `;
+    const lm = Buffer.from(smSvg);
+    const rm = Buffer.from(smSvg);
+    const tmSvg = `
+      <svg>
+        <rect
+          x="0"
+          y="0"
+          width="${smHeight}"
+          height="${smWidth}"
+          fill="#000"
+        />
+      </svg>
+    `;
+    const tm = Buffer.from(tmSvg);
 
     const image = await sharp({
       create: {
@@ -130,7 +158,12 @@ app.get<{ Params: { width: string; height: string; filename: string } }>(
         background: { ...color, alpha: 1 },
       },
     })
-      .composite([{ input: lbl, gravity: 'southeast' }])
+      .composite([
+        { input: lm, gravity: 'west' },
+        { input: rm, gravity: 'east' },
+        { input: tm, gravity: 'north' },
+        { input: lbl, gravity: 'southeast' },
+      ])
       .png()
       .toBuffer();
 
