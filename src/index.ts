@@ -1,59 +1,8 @@
-/* eslint-disable no-magic-numbers */
 import * as path from 'path';
 import fastify from 'fastify';
 import * as sharp from 'sharp';
-import env from './env';
-
-// -- Constants
-const DEFAULT_PORT = 2506;
-const PORT = env.port || DEFAULT_PORT;
-const COLORS = [
-  '#006b73',
-  '#fff638',
-  '#b144f3',
-  '#00e74e',
-  '#7f00ae',
-  '#28d53f',
-  '#ac68ff',
-  '#003800',
-  '#b0009e',
-  '#00ffff',
-  '#ad0000',
-  '#00ffff',
-  '#ff712c',
-  '#003fb5',
-  '#12b790',
-  '#920020',
-  '#00f2ff',
-  '#700000',
-  '#007795',
-  '#640000',
-  '#ffb0ff',
-  '#414500',
-  '#ff8fcc',
-  '#313600',
-  '#003456',
-  '#535000',
-  '#003751',
-  '#700014',
-  '#195447',
-  '#600200',
-]
-  .map((hex) => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result
-      ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16),
-        }
-      : null;
-  })
-  .filter((color) => color);
-
-// -- Basic utilities
-
-const getRandomColor = () => COLORS[Math.floor(Math.random() * COLORS.length)];
+import { COLORS, PORT } from './config';
+import { getRandom } from './fns';
 
 // -- Fastify Server
 
@@ -120,7 +69,7 @@ app.get<{ Params: { width: string; height: string; filename: string } }>(
     `;
 
     const lbl = Buffer.from(lblSvg);
-    const color = getRandomColor();
+    const color = getRandom(COLORS);
 
     const smWidth = Math.floor(width * 0.05);
     const smHeight = Math.floor(height * 0.1);

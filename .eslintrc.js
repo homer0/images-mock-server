@@ -18,6 +18,7 @@ module.exports = {
     'node/no-unsupported-features/es-syntax': ['error', { ignores: ['modules'] }],
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
+    'no-magic-numbers': 'off',
   },
   settings: {
     node: {
